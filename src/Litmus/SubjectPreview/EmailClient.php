@@ -45,15 +45,15 @@ class EmailClient
     /**
      * @var array $clientsDatas List of mail client datas
      */
-    private static $clientsDatas = array(
-        'ol2003'  => array('name' => 'Outlook 2003', 'slug' => 'ol2003',     'hasToast' => true,  'globalSize' => array('width' => 841, 'height' => 128), 'toastSize' => array('width' => 329, 'height' => 74)),
-        'ol2007'  => array('name' => 'Outlook 2007', 'slug' => 'ol2007',     'hasToast' => true,  'globalSize' => array('width' => 662, 'height' => 169), 'toastSize' => array('width' => 329, 'height' => 74)),
-        'ol2010'  => array('name' => 'Outlook 2010', 'slug' => 'ol2010',     'hasToast' => true,  'globalSize' => array('width' => 579, 'height' => 128), 'toastSize' => array('width' => 329, 'height' => 74)),
-        'hotmail' => array('name' => 'Hotmail',      'slug' => 'hotmail',    'hasToast' => false, 'globalSize' => array('width' => 687, 'height' => 110)),
-        'gmail'   => array('name' => 'Gmail',        'slug' => 'gmail',      'hasToast' => false, 'globalSize' => array('width' => 803, 'height' => 83)),
-        'yahoo'   => array('name' => 'Yahoo',        'slug' => 'yahoo',      'hasToast' => false, 'globalSize' => array('width' => 601, 'height' => 104)),
-        // array('name' => 'BlackBerry',   'client' => 'blackberry', 'hasToast' => false),
-    );
+    private static $clientsDatas = [
+        'ol2003'  => ['name' => 'Outlook 2003', 'slug' => 'ol2003', 'hasToast' => true, 'globalSize' => ['width' => 841, 'height' => 128], 'toastSize' => ['width' => 329, 'height' => 74]],
+        'ol2007'  => ['name' => 'Outlook 2007', 'slug' => 'ol2007', 'hasToast' => true, 'globalSize' => ['width' => 662, 'height' => 169], 'toastSize' => ['width' => 329, 'height' => 74]],
+        'ol2010'  => ['name' => 'Outlook 2010', 'slug' => 'ol2010', 'hasToast' => true, 'globalSize' => ['width' => 579, 'height' => 128], 'toastSize' => ['width' => 329, 'height' => 74]],
+        'hotmail' => ['name' => 'Hotmail', 'slug' => 'hotmail', 'hasToast' => false, 'globalSize' => ['width' => 687, 'height' => 110]],
+        'gmail'   => ['name' => 'Gmail', 'slug' => 'gmail', 'hasToast' => false, 'globalSize' => ['width' => 803, 'height' => 83]],
+        'yahoo'   => ['name' => 'Yahoo', 'slug' => 'yahoo', 'hasToast' => false, 'globalSize' => ['width' => 601, 'height' => 104]],
+        // ['name' => 'BlackBerry', 'client' => 'blackberry', 'hasToast' => false],
+    ];
 
     /**
      * Get available email client slug list
@@ -62,7 +62,7 @@ class EmailClient
      */
     public static function getAvailableEmailClients()
     {
-        $availableEmailClients = array();
+        $availableEmailClients = [];
         foreach (self::$clientsDatas as $key => $values) {
             $availableEmailClients[] = $key;
         }
@@ -240,14 +240,14 @@ class EmailClient
         }
 
         // construct url parameters
-        $datas = array(
+        $datas = [
             'c' => $this->getSlug(),
             's' => $this->subjectPreview->getSubject(),
             'p' => $this->subjectPreview->getBody(),
             'f' => $this->subjectPreview->getSender(),
             't' => $toast ? 'toast' : 'subject',
             'rnd' => rand(0, 99999)
-        );
+        ];
 
         return $this->subjectPreview->getEndPoint() . '?' . http_build_query($datas);
     }

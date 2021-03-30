@@ -137,7 +137,7 @@ class SubjectPreview
     private function clean($text, $substrSize)
     {
         $text = substr($text, 0, $substrSize);
-        $text = str_replace(array('&', '+', '#'), array('$AMP;', '$PLUS;', '$HASH;'), $text);
+        $text = str_replace(['&', '+', '#'], ['$AMP;', '$PLUS;', '$HASH;'], $text);
 
         return $text;
     }
