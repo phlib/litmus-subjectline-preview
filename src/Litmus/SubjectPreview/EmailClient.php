@@ -46,13 +46,45 @@ class EmailClient
      * @var array $clientsDatas List of mail client datas
      */
     private static $clientsDatas = [
-        'ol2003'  => ['name' => 'Outlook 2003', 'slug' => 'ol2003', 'hasToast' => true, 'globalSize' => ['width' => 841, 'height' => 128], 'toastSize' => ['width' => 329, 'height' => 74]],
-        'ol2007'  => ['name' => 'Outlook 2007', 'slug' => 'ol2007', 'hasToast' => true, 'globalSize' => ['width' => 662, 'height' => 169], 'toastSize' => ['width' => 329, 'height' => 74]],
-        'ol2010'  => ['name' => 'Outlook 2010', 'slug' => 'ol2010', 'hasToast' => true, 'globalSize' => ['width' => 579, 'height' => 128], 'toastSize' => ['width' => 329, 'height' => 74]],
-        'hotmail' => ['name' => 'Hotmail', 'slug' => 'hotmail', 'hasToast' => false, 'globalSize' => ['width' => 687, 'height' => 110]],
-        'gmail'   => ['name' => 'Gmail', 'slug' => 'gmail', 'hasToast' => false, 'globalSize' => ['width' => 803, 'height' => 83]],
-        'yahoo'   => ['name' => 'Yahoo', 'slug' => 'yahoo', 'hasToast' => false, 'globalSize' => ['width' => 601, 'height' => 104]],
-        // ['name' => 'BlackBerry', 'client' => 'blackberry', 'hasToast' => false],
+        'ol2003' => [
+            'name' => 'Outlook 2003',
+            'slug' => 'ol2003',
+            'hasToast' => true,
+            'globalSize' => ['width' => 841, 'height' => 128],
+            'toastSize' => ['width' => 329, 'height' => 74],
+        ],
+        'ol2007' => [
+            'name' => 'Outlook 2007',
+            'slug' => 'ol2007',
+            'hasToast' => true,
+            'globalSize' => ['width' => 662, 'height' => 169],
+            'toastSize' => ['width' => 329, 'height' => 74],
+        ],
+        'ol2010' => [
+            'name' => 'Outlook 2010',
+            'slug' => 'ol2010',
+            'hasToast' => true,
+            'globalSize' => ['width' => 579, 'height' => 128],
+            'toastSize' => ['width' => 329, 'height' => 74],
+        ],
+        'hotmail' => [
+            'name' => 'Hotmail',
+            'slug' => 'hotmail',
+            'hasToast' => false,
+            'globalSize' => ['width' => 687, 'height' => 110],
+        ],
+        'gmail' => [
+            'name' => 'Gmail',
+            'slug' => 'gmail',
+            'hasToast' => false,
+            'globalSize' => ['width' => 803, 'height' => 83],
+        ],
+        'yahoo' => [
+            'name' => 'Yahoo',
+            'slug' => 'yahoo',
+            'hasToast' => false,
+            'globalSize' => ['width' => 601, 'height' => 104],
+        ],
     ];
 
     /**
@@ -114,7 +146,7 @@ class EmailClient
      */
     public function setHasToast($hasToast)
     {
-        $this->hasToast = (bool) $hasToast;
+        $this->hasToast = (bool)$hasToast;
 
         return $hasToast;
     }

@@ -16,9 +16,15 @@ class SubjectPreviewTest extends \PHPUnit_Framework_TestCase
     {
         $this->subjectPreview = new SubjectPreview();
         $this->subjectPreview
-            ->setSubject("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz")
-            ->setBody("zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcba")
-            ->setSender("aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz")
+            ->setSubject(
+                'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' .
+                'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+            )
+            ->setBody(
+                'zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcba' .
+                'zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcba'
+            )
+            ->setSender('aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz')
         ;
     }
 
@@ -39,7 +45,10 @@ class SubjectPreviewTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(6, EmailClient::getAvailableEmailClients());
 
         foreach (EmailClient::getAvailableEmailClients() as $emailClientSlug) {
-            $this->assertInstanceOf('Litmus\SubjectPreview\EmailClient', $this->subjectPreview->getEmailClient($emailClientSlug));
+            $this->assertInstanceOf(
+                'Litmus\SubjectPreview\EmailClient',
+                $this->subjectPreview->getEmailClient($emailClientSlug)
+            );
         }
 
         $emailClients = EmailClient::getAvailableEmailClients();
