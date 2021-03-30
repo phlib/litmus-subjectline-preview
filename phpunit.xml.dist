@@ -12,16 +12,13 @@
     bootstrap="Tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="LitumusAPI Test Suite">
-            <directory>./Tests/</directory>
+        <testsuite name="Phlib Test Suite">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory>./</directory>
-            <exclude>
-                <directory>./Tests</directory>
-            </exclude>
+            <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
 </phpunit>

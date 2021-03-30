@@ -1,8 +1,6 @@
 <?php
 
-namespace Litmus\SubjectPreview;
-
-use Litmus\SubjectPreview\SubjectPreview;
+namespace Phlib\LitmusSubjectPreview;
 
 /**
  * EmailClient class

@@ -1,8 +1,6 @@
 <?php
 
-namespace Litmus\SubjectPreview;
-
-use Litmus\SubjectPreview\EmailClient;
+namespace Phlib\LitmusSubjectPreview;
 
 /**
  * GenerateSubjectPreview : generate email's subject pictures

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add specific support for PHP v7 (^7.3).
 - Add missing from address to preview images. 
 ### Changed
+- **BC break**: Namespace changed to `Phlib\LitmusSubjectPreview`.
 - Change licence to LGPLv3 to match other Phlib projects.
 ### Removed
 - **BC break**: Removed support for PHP versions <= 7.2 as they are no longer

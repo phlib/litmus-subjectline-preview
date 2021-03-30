@@ -2,8 +2,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Litmus\SubjectPreview\EmailClient;
-use Litmus\SubjectPreview\SubjectPreview;
+use Phlib\LitmusSubjectPreview\EmailClient;
+use Phlib\LitmusSubjectPreview\SubjectPreview;
 
 // Build subject details
 $subjectPreview = new SubjectPreview();
