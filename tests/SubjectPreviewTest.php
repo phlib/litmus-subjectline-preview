@@ -13,7 +13,7 @@ class SubjectPreviewTest extends TestCase
 {
     protected $subjectPreview;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->subjectPreview = new SubjectPreview();
         $this->subjectPreview
@@ -29,19 +29,19 @@ class SubjectPreviewTest extends TestCase
         ;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->subjectPreview = null;
     }
 
-    public function testSubjectPreview()
+    public function testSubjectPreview(): void
     {
         static::assertEquals(100, strlen($this->subjectPreview->getSubject()));
         static::assertEquals(100, strlen($this->subjectPreview->getBody()));
         static::assertEquals(50, strlen($this->subjectPreview->getSender()));
     }
 
-    public function testEmailClient()
+    public function testEmailClient(): void
     {
         static::assertCount(6, EmailClient::getAvailableEmailClients());
 
@@ -66,7 +66,7 @@ class SubjectPreviewTest extends TestCase
         static::assertEquals(329, $size['width']);
     }
 
-    public function testUrl()
+    public function testUrl(): void
     {
         static::assertStringStartsWith(
             'https://allclients.litmus.com/s/?c=ol2003' .
