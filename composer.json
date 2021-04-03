@@ -1,0 +1,25 @@
+{
+    "name": "phlib/litmus-subjectline-preview",
+    "description": "SDK to generate Litmus subject line preview images",
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Benjamin Laugueux",
+            "homepage": "https://github.com/blaugueux"
+        },
+        {
+            "name": "Phlib Team & Contributors",
+            "homepage": "https://github.com/phlib/litmus-subject-preview/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+
+        "ext-soap": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Litmus": "src/"
+        }
+    }
+}
