@@ -24,6 +24,10 @@ Via Composer
 $ composer require phlib/litmus-subjectline-preview
 ```
 
+## Usage
+
+Check [example.php](example/example.php)
+
 ## License
 
 This package is free software: you can redistribute it and/or modify
