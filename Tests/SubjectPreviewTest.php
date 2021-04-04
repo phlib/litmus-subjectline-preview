@@ -58,8 +58,12 @@ class SubjectPreviewTest extends \PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $this->assertContains(
-            'https://allclients.litmus.com/s/?c=ol2003&s=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuv&p=zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfe&t=subject&rnd=',
+        $this->assertStringStartsWith(
+            'https://allclients.litmus.com/s/?c=ol2003' .
+            '&s=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuv' .
+            '&p=zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfe' .
+            '&f=aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyy' .
+            '&t=subject&rnd=',
             $this->subjectPreview->getEmailClient('ol2003')->getUrl()
         );
     }

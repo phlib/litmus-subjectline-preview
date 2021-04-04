@@ -244,6 +244,7 @@ class EmailClient
             'c' => $this->getSlug(),
             's' => $this->subjectPreview->getSubject(),
             'p' => $this->subjectPreview->getBody(),
+            'f' => $this->subjectPreview->getSender(),
             't' => $toast ? 'toast' : 'subject',
             'rnd' => rand(0, 99999)
         );

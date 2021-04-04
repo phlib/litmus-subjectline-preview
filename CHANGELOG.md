@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Add missing from address to preview images. 
 ### Changed
 - Change licence to LGPLv3 to match other Phlib projects.
 
