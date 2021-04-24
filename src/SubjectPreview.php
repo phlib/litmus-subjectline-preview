@@ -28,11 +28,6 @@ class SubjectPreview
     private $sender;
 
     /**
-     * @var string $endPoint The endpoint
-     */
-    private $endPoint = 'https://allclients.litmus.com/s/';
-
-    /**
      * Set subject
      *
      * @param string $subject
@@ -114,16 +109,6 @@ class SubjectPreview
     public function getSender()
     {
         return $this->sender;
-    }
-
-    /**
-     * Get endPoint
-     *
-     * @return string
-     */
-    public function getEndPoint()
-    {
-        return $this->endPoint;
     }
 
     /**

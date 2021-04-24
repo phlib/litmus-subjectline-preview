@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - **BC break**: Removed support for PHP versions <= 7.2 as they are no longer
   [actively supported](https://php.net/supported-versions.php)
   by the PHP project.
+- **BC break**: Removed `SubjectPreview::getEndpoint()`.
 
 ## [2.0.1] - 2021-04-03
 

@@ -13,6 +13,11 @@ namespace Phlib\LitmusSubjectPreview;
 class EmailClient
 {
     /**
+     * @var string
+     */
+    private $baseUri = 'https://allclients.litmus.com/s/';
+
+    /**
      * @var $name The email client name
      */
     private $name;
@@ -281,6 +286,6 @@ class EmailClient
             'rnd' => rand(0, 99999)
         ];
 
-        return $this->subjectPreview->getEndPoint() . '?' . http_build_query($datas);
+        return $this->baseUri . '?' . http_build_query($datas);
     }
 }
