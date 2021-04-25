@@ -8,12 +8,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Add specific support for PHP v7 (^7.3).
-- Add missing from address to preview images. 
+- Add missing from address to preview images.
+- Add type declarations for parameters and return types.
 ### Changed
 - **BC break**: Namespace changed to `Phlib\LitmusSubjectPreview`.
 - Change licence to LGPLv3 to match other Phlib projects.
 - Unknown email client throws `DomainException` in
   `EmailClient::getInstance()` instead of generic `Exception`.
+- `EmailClient::setHasToast()` returns self instead of the given value, to
+  match fluent behaviour of other setters.
 ### Removed
 - **BC break**: Removed support for PHP versions <= 7.2 as they are no longer
   [actively supported](https://php.net/supported-versions.php)

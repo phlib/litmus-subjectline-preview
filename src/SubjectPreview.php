@@ -5,121 +5,69 @@ declare(strict_types=1);
 namespace Phlib\LitmusSubjectPreview;
 
 /**
- * GenerateSubjectPreview : generate email's subject pictures
+ * Filtered values for generating email's subject pictures
  *
  * @package Phlib\Litmus-Subject-Preview
- * @author    Benjamin Laugueux <benjamin@yzalis.com>
  */
 class SubjectPreview
 {
     /**
-     * @var string $subject The email subject
+     * @var string The email subject
      */
     private $subject;
 
     /**
-     * @var string $body The email body
+     * @var string The email body
      */
     private $body;
 
     /**
-     * @var string $sender The email sender name
+     * @var string The email sender name
      */
     private $sender;
 
-    /**
-     * Set subject
-     *
-     * @param string $subject
-     *
-     * @return this
-     */
-    public function setSubject($subject)
+    public function setSubject(string $subject): self
     {
         $this->subject = $this->clean($subject, 100);
 
         return $this;
     }
 
-    /**
-     * Set body
-     *
-     * @param string $body
-     *
-     * @return this
-     */
-    public function setBody($body)
+    public function setBody(string $body): self
     {
         $this->body = $this->clean($body, 100);
 
         return $this;
     }
 
-    /**
-     * Set sender
-     *
-     * @param string $sender
-     *
-     * @return this
-     */
-    public function setSender($sender)
+    public function setSender(string $sender): self
     {
         $this->sender = $this->clean($sender, 50);
 
         return $this;
     }
 
-    /**
-     * Get an EmailClient instance
-     *
-     * @param string $clientSlug
-     *
-     * @return EmailClient
-     */
-    public function getEmailClient($clientSlug)
+    public function getEmailClient(string $clientSlug): EmailClient
     {
         return EmailClient::getInstance($clientSlug)->setSubjectPreview($this);
     }
 
-    /**
-     * Get subject
-     *
-     * @return string
-     */
-    public function getSubject()
+    public function getSubject(): string
     {
         return $this->subject;
     }
 
-    /**
-     * Get body
-     *
-     * @return string
-     */
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }
 
-    /**
-     * Get sender
-     *
-     * @return string
-     */
-    public function getSender()
+    public function getSender(): string
     {
         return $this->sender;
     }
 
-    /**
-     * Clean and strip the text
-     *
-     * @param string  $text
-     * @param integer $substrSize
-     *
-     * @return string
-     */
-    private function clean($text, $substrSize)
+    private function clean(string $text, int $substrSize): string
     {
         $text = substr($text, 0, $substrSize);
         $text = str_replace(['&', '+', '#'], ['$AMP;', '$PLUS;', '$HASH;'], $text);

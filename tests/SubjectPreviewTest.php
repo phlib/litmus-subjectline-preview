@@ -99,11 +99,14 @@ class SubjectPreviewTest extends TestCase
 
         $subjectPreview = new SubjectPreview();
         $subjectPreview->setSubject($checkValue);
+        $subjectPreview->setBody('');
+        $subjectPreview->setSender('');
 
         $emailClient = $subjectPreview->getEmailClient('ol2003');
 
         self::assertEquals('ol2003', $emailClient->getSlug());
 
+        // Test EmailClient is using the given subject
         self::assertStringContainsString($checkValue, $emailClient->getUrl(false));
     }
 }

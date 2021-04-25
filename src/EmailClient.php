@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Phlib\LitmusSubjectPreview;
 
 /**
- * EmailClient class
- *
  * @package Phlib\Litmus-Subject-Preview
- * @author    Benjamin Laugueux <benjamin@yzalis.com>
  */
 class EmailClient
 {
@@ -18,27 +15,27 @@ class EmailClient
     private $baseUri = 'https://allclients.litmus.com/s/';
 
     /**
-     * @var $name The email client name
+     * @var string The email client name
      */
     private $name;
 
     /**
-     * @var $slug The email client identifier
+     * @var string The email client identifier
      */
     private $slug;
 
     /**
-     * @var $hasSlug Define if the email client has a toast view
+     * @var bool Define if the email client has a toast view
      */
     private $hasToast;
 
     /**
-     * @var $globalSize The width and height of global subject preview
+     * @var array The width and height of global subject preview
      */
     private $globalSize;
 
     /**
-     * @var $toastSize The width and height of toast subject preview
+     * @var array The width and height of toast subject preview
      */
     private $toastSize;
 
@@ -95,9 +92,9 @@ class EmailClient
     /**
      * Get available email client slug list
      *
-     * @return array
+     * @return string[]
      */
-    public static function getAvailableEmailClients()
+    public static function getAvailableEmailClients(): array
     {
         $availableEmailClients = [];
         foreach (self::$clientsDatas as $key => $values) {
@@ -107,14 +104,7 @@ class EmailClient
         return $availableEmailClients;
     }
 
-    /**
-     * Get an object instance (singleton)
-     *
-     * @param string $slug
-     *
-     * @return EmailClient
-     */
-    public static function getInstance($slug)
+    public static function getInstance(string $slug): EmailClient
     {
         if (!isset(self::$clientsDatas[$slug])) {
             throw new \DomainException(sprintf('The email client "%s" does not exist.', $slug));
@@ -128,136 +118,69 @@ class EmailClient
         return $emailClient;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return this
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Set hasToast
-     *
-     * @param string $hasToast
-     *
-     * @return this
-     */
-    public function setHasToast($hasToast)
+    public function setHasToast(bool $hasToast): self
     {
         $this->hasToast = (bool)$hasToast;
 
-        return $hasToast;
+        return $this;
     }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return this
-     */
-    public function setSlug($slug)
+    public function setSlug(string $slug): self
     {
         $this->slug = $slug;
 
         return $this;
     }
 
-    /**
-     * Set globalSize
-     *
-     * @param string $globalSize
-     *
-     * @return this
-     */
-    public function setGlobalSize($globalSize)
+    public function setGlobalSize(array $globalSize): self
     {
         $this->globalSize = $globalSize;
 
         return $this;
     }
 
-    /**
-     * Set toastSize
-     *
-     * @param string $toastSize
-     *
-     * @return this
-     */
-    public function setToastSize($toastSize)
+    public function setToastSize(array $toastSize): self
     {
         $this->toastSize = $toastSize;
 
         return $this;
     }
 
-    /**
-     * Set subjectPreview
-     *
-     * @param SubjectPreview $subjectPreview
-     *
-     * @return this
-     */
-    public function setSubjectPreview(SubjectPreview $subjectPreview)
+    public function setSubjectPreview(SubjectPreview $subjectPreview): self
     {
         $this->subjectPreview = $subjectPreview;
 
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }
 
-    /**
-     * Get globalSize
-     *
-     * @return array
-     */
-    public function getGlobalSize()
+    public function getGlobalSize(): array
     {
         return $this->globalSize;
     }
 
-    /**
-     * Get toastSize
-     *
-     * @return array
-     */
-    public function getToastSize()
+    public function getToastSize(): ?array
     {
         return $this->toastSize;
     }
 
-    /**
-     * Get hasToast
-     *
-     * @return boolean
-     */
-    public function getHasToast()
+    public function getHasToast(): bool
     {
         return $this->hasToast;
     }
@@ -265,11 +188,10 @@ class EmailClient
     /**
      * Get the image url
      *
-     * @param boolean $toast Return the toast picture url or not. Default is false
-     *
-     * @return string
+     * @param bool $toast Return the toast picture url or not. Default is false
+     * @return string|null
      */
-    public function getUrl($toast = false)
+    public function getUrl(bool $toast = false): ?string
     {
         // check if there is a toast to show
         if ($toast && !$this->getHasToast()) {
