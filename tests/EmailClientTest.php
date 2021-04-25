@@ -13,63 +13,212 @@ use PHPUnit\Framework\TestCase;
  */
 class EmailClientTest extends TestCase
 {
-    protected $subjectPreview;
-
-    public function setUp(): void
+    public function testGetAvailableEmailClients(): void
     {
-        $this->subjectPreview = new SubjectPreview();
-        $this->subjectPreview
-            ->setSubject(
-                'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' .
-                'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
-            )
-            ->setBody(
-                'zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcba' .
-                'zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcba'
-            )
-            ->setSender('aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz')
-        ;
-    }
+        $expected = [
+            'ol2003',
+            'ol2007',
+            'ol2010',
+            'hotmail',
+            'gmail',
+            'yahoo',
+        ];
 
-    protected function tearDown(): void
-    {
-        $this->subjectPreview = null;
-    }
+        $actual = EmailClient::getAvailableEmailClients();
 
-    public function testEmailClient(): void
-    {
-        static::assertCount(6, EmailClient::getAvailableEmailClients());
+        static::assertCount(count($expected), $actual);
 
-        foreach (EmailClient::getAvailableEmailClients() as $emailClientSlug) {
-            static::assertInstanceOf(
-                EmailClient::class,
-                $this->subjectPreview->getEmailClient($emailClientSlug)
-            );
+        foreach ($expected as $emailClientSlug) {
+            static::assertContains($emailClientSlug, $actual);
         }
-
-        $emailClients = EmailClient::getAvailableEmailClients();
-        $emailClient = $this->subjectPreview->getEmailClient($emailClients[0]);
-
-        static::assertEquals('ol2003', $emailClient->getSlug());
-        static::assertEquals('Outlook 2003', $emailClient->getName());
-        static::assertTrue($emailClient->getHasToast());
-        $size = $emailClient->getGlobalSize();
-        static::assertEquals(128, $size['height']);
-        static::assertEquals(841, $size['width']);
-        $size = $emailClient->getToastSize();
-        static::assertEquals(74, $size['height']);
-        static::assertEquals(329, $size['width']);
     }
 
-    public function testUrl(): void
+    public function testGetInstanceInvalid(): void
     {
-        static::assertStringStartsWith(
-            'https://allclients.litmus.com/s/?c=ol2003' .
-            '&s=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuv' .
-            '&p=zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfe' .
-            '&f=aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyy' .
-            '&t=subject&rnd=',
-            $this->subjectPreview->getEmailClient('ol2003')->getUrl()
-        );
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('does not exist');
+
+        EmailClient::getInstance(sha1(uniqid()));
+    }
+
+    /**
+     * @dataProvider dataEmailClientMeta
+     */
+    public function testEmailClientMeta(
+        string $slug,
+        string $name,
+        bool $hasToast,
+        int $width,
+        int $height,
+        ?int $toastWidth,
+        ?int $toastHeight
+    ): void {
+        $emailClient = EmailClient::getInstance($slug);
+
+        static::assertEquals($slug, $emailClient->getSlug());
+        static::assertEquals($name, $emailClient->getName());
+        static::assertSame($hasToast, $emailClient->getHasToast());
+        $size = $emailClient->getGlobalSize();
+        static::assertEquals($width, $size['width']);
+        static::assertEquals($height, $size['height']);
+        $size = $emailClient->getToastSize();
+        static::assertEquals($toastWidth, $size['width']);
+        static::assertEquals($toastHeight, $size['height']);
+    }
+
+    public function dataEmailClientMeta(): array
+    {
+        return [
+            'ol2003' => [
+                'slug' => 'ol2003',
+                'name' => 'Outlook 2003',
+                'hasToast' => true,
+                'width' => 841,
+                'height' => 128,
+                'toastWidth' => 329,
+                'toastHeight' => 74,
+            ],
+            'ol2007' => [
+                'slug' => 'ol2007',
+                'name' => 'Outlook 2007',
+                'hasToast' => true,
+                'width' => 662,
+                'height' => 169,
+                'toastWidth' => 329,
+                'toastHeight' => 74,
+            ],
+            'ol2010' => [
+                'slug' => 'ol2010',
+                'name' => 'Outlook 2010',
+                'hasToast' => true,
+                'width' => 579,
+                'height' => 128,
+                'toastWidth' => 329,
+                'toastHeight' => 74,
+            ],
+            'hotmail' => [
+                'slug' => 'hotmail',
+                'name' => 'Hotmail',
+                'hasToast' => false,
+                'width' => 687,
+                'height' => 110,
+                'toastWidth' => null,
+                'toastHeight' => null,
+            ],
+            'gmail' => [
+                'slug' => 'gmail',
+                'name' => 'Gmail',
+                'hasToast' => false,
+                'width' => 803,
+                'height' => 83,
+                'toastWidth' => null,
+                'toastHeight' => null,
+            ],
+            'yahoo' => [
+                'slug' => 'yahoo',
+                'name' => 'Yahoo',
+                'hasToast' => false,
+                'width' => 601,
+                'height' => 104,
+                'toastWidth' => null,
+                'toastHeight' => null,
+            ],
+        ];
+    }
+
+    public function testUrlBase(): void
+    {
+        $subject = sha1(uniqid());
+        $body = sha1(uniqid());
+        $sender = sha1(uniqid());
+
+        $subjectPreview = new SubjectPreview();
+        $subjectPreview
+            ->setSubject($subject)
+            ->setBody($body)
+            ->setSender($sender)
+        ;
+
+        $uri = $subjectPreview->getEmailClient('ol2003')->getUrl();
+
+        static::assertStringStartsWith('https://allclients.litmus.com/s/?c=ol2003', $uri);
+
+        $query = parse_url($uri, PHP_URL_QUERY);
+        $params = [];
+        parse_str($query, $params);
+
+        static::assertArrayHasKey('s', $params);
+        static::assertEquals($subject, $params['s']);
+
+        static::assertArrayHasKey('p', $params);
+        static::assertEquals($body, $params['p']);
+
+        static::assertArrayHasKey('f', $params);
+        static::assertEquals($sender, $params['f']);
+
+        static::assertArrayHasKey('rnd', $params);
+        static::assertIsNumeric($params['rnd']);
+    }
+
+    public function testUrlSubject(): void
+    {
+        $subjectPreview = new SubjectPreview();
+        $subjectPreview
+            ->setSubject(sha1(uniqid()))
+            ->setBody(sha1(uniqid()))
+            ->setSender(sha1(uniqid()))
+        ;
+
+        $uri = $subjectPreview->getEmailClient('ol2003')->getUrl(false);
+
+        $query = parse_url($uri, PHP_URL_QUERY);
+        $params = [];
+        parse_str($query, $params);
+
+        static::assertArrayHasKey('t', $params);
+        static::assertEquals('subject', $params['t']);
+
+        // Check default param value also gives subject URI
+        $defaultUri = $subjectPreview->getEmailClient('ol2003')->getUrl();
+
+        $defaultQuery = parse_url($defaultUri, PHP_URL_QUERY);
+        $defaultParams = [];
+        parse_str($defaultQuery, $defaultParams);
+
+        static::assertArrayHasKey('t', $defaultParams);
+        static::assertEquals('subject', $defaultParams['t']);
+    }
+
+    public function testUrlToast(): void
+    {
+        $subjectPreview = new SubjectPreview();
+        $subjectPreview
+            ->setSubject(sha1(uniqid()))
+            ->setBody(sha1(uniqid()))
+            ->setSender(sha1(uniqid()))
+        ;
+
+        $uri = $subjectPreview->getEmailClient('ol2003')->getUrl(true);
+
+        $query = parse_url($uri, PHP_URL_QUERY);
+        $params = [];
+        parse_str($query, $params);
+
+        static::assertArrayHasKey('t', $params);
+        static::assertEquals('toast', $params['t']);
+    }
+
+    public function testUrlToastNone(): void
+    {
+        $subjectPreview = new SubjectPreview();
+        $subjectPreview
+            ->setSubject(sha1(uniqid()))
+            ->setBody(sha1(uniqid()))
+            ->setSender(sha1(uniqid()))
+        ;
+
+        $uri = $subjectPreview->getEmailClient('yahoo')->getUrl(true);
+
+        static::assertNull($uri);
     }
 }
