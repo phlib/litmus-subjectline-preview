@@ -1,6 +1,6 @@
 # phlib/litmus-subjectline-preview
 
-[![Build Status](https://img.shields.io/travis/phlib/litmus-subjectline-preview/master.svg)](https://travis-ci.org/phlib/litmus-subjectline-preview)
+[![Build Status](https://img.shields.io/travis/com/phlib/litmus-subjectline-preview/main.svg)](https://travis-ci.com/phlib/litmus-subjectline-preview)
 [![Codecov](https://img.shields.io/codecov/c/github/phlib/litmus-subjectline-preview.svg)](https://codecov.io/gh/phlib/litmus-subjectline-preview)
 [![Latest Stable Version](https://img.shields.io/packagist/v/phlib/litmus-subjectline-preview.svg)](https://packagist.org/packages/phlib/litmus-subjectline-preview)
 [![Total Downloads](https://img.shields.io/packagist/dt/phlib/litmus-subjectline-preview.svg)](https://packagist.org/packages/phlib/litmus-subjectline-preview)
