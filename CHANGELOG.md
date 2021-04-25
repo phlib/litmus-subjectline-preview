@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - **BC break**: Namespace changed to `Phlib\LitmusSubjectPreview`.
 - Change licence to LGPLv3 to match other Phlib projects.
+- Unknown email client throws `DomainException` in
+  `EmailClient::getInstance()` instead of generic `Exception`.
 ### Removed
 - **BC break**: Removed support for PHP versions <= 7.2 as they are no longer
   [actively supported](https://php.net/supported-versions.php)
