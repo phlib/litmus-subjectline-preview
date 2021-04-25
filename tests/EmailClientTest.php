@@ -62,8 +62,12 @@ class EmailClientTest extends TestCase
         static::assertEquals($width, $size['width']);
         static::assertEquals($height, $size['height']);
         $size = $emailClient->getToastSize();
-        static::assertEquals($toastWidth, $size['width']);
-        static::assertEquals($toastHeight, $size['height']);
+        if ($toastWidth === null) {
+            static::assertNull($size);
+        } else {
+            static::assertEquals($toastWidth, $size['width']);
+            static::assertEquals($toastHeight, $size['height']);
+        }
     }
 
     public function dataEmailClientMeta(): array
