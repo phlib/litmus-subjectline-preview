@@ -69,7 +69,12 @@ class SubjectPreview
 
     private function clean(string $text, int $substrSize): string
     {
-        $text = substr($text, 0, $substrSize);
+        // strip out newline characters
+        $text = str_replace(["\r\n", "\r", "\n"], ' ', $text);
+
+        $text = mb_substr($text, 0, $substrSize);
+
+        // Litmus-specific substitutions
         $text = str_replace(['&', '+', '#'], ['$AMP;', '$PLUS;', '$HASH;'], $text);
 
         return $text;
