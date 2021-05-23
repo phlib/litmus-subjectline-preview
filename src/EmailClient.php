@@ -45,34 +45,29 @@ class EmailClient
     private static $clientsDatas = [
         'ol2003' => [
             'name' => 'Outlook 2003',
-            'slug' => 'ol2003',
             'hasToast' => true,
             'globalSize' => ['width' => 841, 'height' => 128],
             'toastSize' => ['width' => 329, 'height' => 74],
         ],
         'ol2007' => [
             'name' => 'Outlook 2007',
-            'slug' => 'ol2007',
             'hasToast' => true,
             'globalSize' => ['width' => 662, 'height' => 169],
             'toastSize' => ['width' => 329, 'height' => 74],
         ],
         'ol2010' => [
             'name' => 'Outlook 2010',
-            'slug' => 'ol2010',
             'hasToast' => true,
             'globalSize' => ['width' => 579, 'height' => 128],
             'toastSize' => ['width' => 329, 'height' => 74],
         ],
         'hotmail' => [
             'name' => 'Hotmail',
-            'slug' => 'hotmail',
             'hasToast' => false,
             'globalSize' => ['width' => 687, 'height' => 110],
         ],
         'gmail' => [
             'name' => 'Gmail',
-            'slug' => 'gmail',
             'hasToast' => false,
             'globalSize' => ['width' => 803, 'height' => 83],
         ],
@@ -105,47 +100,27 @@ class EmailClient
             throw new \DomainException(sprintf('The email client "%s" does not exist.', $slug));
         }
 
-        $emailClient = new EmailClient();
-        foreach (self::$clientsDatas[$slug] as $key => $value) {
-            $emailClient->{'set' . ucfirst($key)}($value);
-        }
-
-        return $emailClient;
+        return new EmailClient(
+            $slug,
+            self::$clientsDatas[$slug]['name'],
+            self::$clientsDatas[$slug]['hasToast'],
+            self::$clientsDatas[$slug]['globalSize'],
+            self::$clientsDatas[$slug]['toastSize'] ?? [],
+        );
     }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function setHasToast(bool $hasToast): self
-    {
-        $this->hasToast = (bool)$hasToast;
-
-        return $this;
-    }
-
-    public function setSlug(string $slug): self
-    {
+    public function __construct(
+        string $slug,
+        string $name,
+        bool $hasToast,
+        array $globalSize,
+        array $toastSize
+    ) {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function setGlobalSize(array $globalSize): self
-    {
+        $this->name = $name;
+        $this->hasToast = $hasToast;
         $this->globalSize = $globalSize;
-
-        return $this;
-    }
-
-    public function setToastSize(array $toastSize): self
-    {
         $this->toastSize = $toastSize;
-
-        return $this;
     }
 
     public function getName(): string
@@ -163,7 +138,7 @@ class EmailClient
         return $this->globalSize;
     }
 
-    public function getToastSize(): ?array
+    public function getToastSize(): array
     {
         return $this->toastSize;
     }

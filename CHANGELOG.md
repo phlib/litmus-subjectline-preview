@@ -26,6 +26,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   match fluent behaviour of other setters.
 - Strings for subject/body/sender are multi-byte safe when truncated.
   Newlines are removed.
+- `EmailClient` which does not support toast returns an empty array for 
+  `getToastSize()` instead of `null`.
 ### Removed
 - **BC break**: Removed support for PHP versions <= 7.2 as they are no longer
   [actively supported](https://php.net/supported-versions.php)
@@ -39,6 +41,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - **BC break**: Removed setters from `SubjectPreview` to give an immutable 
   object using constructor params. Modify an existing subject using `with*` 
   methods.
+- **BC break**: Removed setters from `EmailClient` to give an immutable object
+  from pre-defined values for each client.
 
 ## [2.0.1] - 2021-04-03
 

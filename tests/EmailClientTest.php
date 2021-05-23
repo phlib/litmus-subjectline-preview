@@ -63,7 +63,7 @@ class EmailClientTest extends TestCase
         static::assertEquals($height, $size['height']);
         $size = $emailClient->getToastSize();
         if ($toastWidth === null) {
-            static::assertNull($size);
+            static::assertEmpty($size);
         } else {
             static::assertEquals($toastWidth, $size['width']);
             static::assertEquals($toastHeight, $size['height']);
