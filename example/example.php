@@ -16,8 +16,7 @@ $subjectPreview
 ;
 
 // Fluent access to single client's preview URI
-$previewUri = $subjectPreview->getEmailClient('ol2003')->getUrl();
-
+$previewUri = EmailClient::getInstance('ol2003')->getInboxUrl($subjectPreview);
 echo '<pre>' . $previewUri . '</pre>';
 
 echo "\n\n";
@@ -25,12 +24,11 @@ echo "\n\n";
 // Output all available images
 foreach (EmailClient::getAvailableEmailClients() as $clientName) {
     $emailClient = EmailClient::getInstance($clientName);
-    $emailClient->setSubjectPreview($subjectPreview);
     echo "<h1>{$emailClient->getName()} ({$emailClient->getSlug()})</h1>\n";
 
     $subjectSize = $emailClient->getGlobalSize();
     echo <<<HTML
-<img src="{$emailClient->getUrl(false)}"
+<img src="{$emailClient->getInboxUrl($subjectPreview)}"
     alt="{$emailClient->getSlug()} subject"
     width="{$subjectSize['width']}"
     height="{$subjectSize['height']}"
@@ -41,7 +39,7 @@ HTML;
     if ($emailClient->getHasToast()) {
         $toastSize = $emailClient->getToastSize();
         echo <<<HTML
-<img src="{$emailClient->getUrl(true)}"
+<img src="{$emailClient->getToastUrl($subjectPreview)}"
     alt="{$emailClient->getSlug()} toast"
     width="{$toastSize['width']}"
     height="{$toastSize['height']}"

@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add dependency requirement for `ext-mbstring`.
 - Add missing from address to preview images.
 - Add type declarations for parameters and return types.
+- Add `EmailClient::getInboxUrl()` and `EmailClient::getToastUrl()` for clear
+  method signatures, requiring an instance of `SubjectPreview` as the param.
 ### Changed
 - **BC break**: Namespace changed to `Phlib\LitmusSubjectPreview`.
 - Change licence to LGPLv3 to match other Phlib projects.
@@ -25,6 +27,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [actively supported](https://php.net/supported-versions.php)
   by the PHP project.
 - **BC break**: Removed `SubjectPreview::getEndpoint()`.
+- **BC break**: Removed `SubjectPreview::getEmailClient()`.
+  Use `EmailClient::getInstance()`.
+- **BC break**: Removed `EmailClient::setSubjectPreview()`.
+- **BC break**: Removed `EmailClient::getUrl()`.
+  Use `getInboxUrl()` or `getToastUrl()`.
 
 ## [2.0.1] - 2021-04-03
 

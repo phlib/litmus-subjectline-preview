@@ -143,7 +143,7 @@ class EmailClientTest extends TestCase
             ->setSender($sender)
         ;
 
-        $uri = $subjectPreview->getEmailClient('ol2003')->getUrl();
+        $uri = EmailClient::getInstance('ol2003')->getInboxUrl($subjectPreview);
 
         static::assertStringStartsWith('https://allclients.litmus.com/s/?c=ol2003', $uri);
 
@@ -164,7 +164,7 @@ class EmailClientTest extends TestCase
         static::assertIsNumeric($params['rnd']);
     }
 
-    public function testUrlSubject(): void
+    public function testUrlInbox(): void
     {
         $subjectPreview = new SubjectPreview();
         $subjectPreview
@@ -173,7 +173,7 @@ class EmailClientTest extends TestCase
             ->setSender(sha1(uniqid()))
         ;
 
-        $uri = $subjectPreview->getEmailClient('ol2003')->getUrl(false);
+        $uri = EmailClient::getInstance('ol2003')->getInboxUrl($subjectPreview);
 
         $query = parse_url($uri, PHP_URL_QUERY);
         $params = [];
@@ -181,16 +181,6 @@ class EmailClientTest extends TestCase
 
         static::assertArrayHasKey('t', $params);
         static::assertEquals('subject', $params['t']);
-
-        // Check default param value also gives subject URI
-        $defaultUri = $subjectPreview->getEmailClient('ol2003')->getUrl();
-
-        $defaultQuery = parse_url($defaultUri, PHP_URL_QUERY);
-        $defaultParams = [];
-        parse_str($defaultQuery, $defaultParams);
-
-        static::assertArrayHasKey('t', $defaultParams);
-        static::assertEquals('subject', $defaultParams['t']);
     }
 
     public function testUrlToast(): void
@@ -202,7 +192,7 @@ class EmailClientTest extends TestCase
             ->setSender(sha1(uniqid()))
         ;
 
-        $uri = $subjectPreview->getEmailClient('ol2003')->getUrl(true);
+        $uri = EmailClient::getInstance('ol2003')->getToastUrl($subjectPreview);
 
         $query = parse_url($uri, PHP_URL_QUERY);
         $params = [];
@@ -214,6 +204,9 @@ class EmailClientTest extends TestCase
 
     public function testUrlToastNone(): void
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('Toast not supported');
+
         $subjectPreview = new SubjectPreview();
         $subjectPreview
             ->setSubject(sha1(uniqid()))
@@ -221,8 +214,6 @@ class EmailClientTest extends TestCase
             ->setSender(sha1(uniqid()))
         ;
 
-        $uri = $subjectPreview->getEmailClient('yahoo')->getUrl(true);
-
-        static::assertNull($uri);
+        EmailClient::getInstance('yahoo')->getToastUrl($subjectPreview);
     }
 }

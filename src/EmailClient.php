@@ -40,11 +40,6 @@ class EmailClient
     private $toastSize;
 
     /**
-     * @var SubjectPreview
-     */
-    private $subjectPreview;
-
-    /**
      * @var array $clientsDatas List of mail client datas
      */
     private static $clientsDatas = [
@@ -153,13 +148,6 @@ class EmailClient
         return $this;
     }
 
-    public function setSubjectPreview(SubjectPreview $subjectPreview): self
-    {
-        $this->subjectPreview = $subjectPreview;
-
-        return $this;
-    }
-
     public function getName(): string
     {
         return $this->name;
@@ -185,29 +173,30 @@ class EmailClient
         return $this->hasToast;
     }
 
-    /**
-     * Get the image url
-     *
-     * @param bool $toast Return the toast picture url or not. Default is false
-     * @return string|null
-     */
-    public function getUrl(bool $toast = false): ?string
+    public function getInboxUrl(SubjectPreview $subject): string
     {
-        // check if there is a toast to show
-        if ($toast && !$this->getHasToast()) {
-            return null;
-        }
+        return $this->getUrl($subject, false);
+    }
 
-        // construct url parameters
-        $datas = [
+    public function getToastUrl(SubjectPreview $subject): string
+    {
+        if (!$this->getHasToast()) {
+            throw new \DomainException(sprintf('Toast not supported for "%s"', $this->getSlug()));
+        }
+        return $this->getUrl($subject, true);
+    }
+
+    private function getUrl(SubjectPreview $subject, bool $toast = false): string
+    {
+        $data = [
             'c' => $this->getSlug(),
-            's' => $this->subjectPreview->getSubject(),
-            'p' => $this->subjectPreview->getBody(),
-            'f' => $this->subjectPreview->getSender(),
+            's' => $subject->getSubject(),
+            'p' => $subject->getBody(),
+            'f' => $subject->getSender(),
             't' => $toast ? 'toast' : 'subject',
             'rnd' => rand(0, 99999)
         ];
 
-        return $this->baseUri . '?' . http_build_query($datas);
+        return $this->baseUri . '?' . http_build_query($data);
     }
 }

@@ -47,11 +47,6 @@ class SubjectPreview
         return $this;
     }
 
-    public function getEmailClient(string $clientSlug): EmailClient
-    {
-        return EmailClient::getInstance($clientSlug)->setSubjectPreview($this);
-    }
-
     public function getSubject(): string
     {
         return $this->subject;
