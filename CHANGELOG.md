@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [3.0.0] - 2021-05-23
+
 ### Added
 - Add specific support for PHP v7 and v8 (`^7.3 | ^8.0`).
 - Add dependency requirement for `ext-mbstring`.
