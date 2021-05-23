@@ -17,11 +17,41 @@ class SubjectPreviewTest extends TestCase
      */
     public function testGetSubject(string $value, string $expected): void
     {
-        $subjectPreview = new SubjectPreview();
-
-        $subjectPreview->setSubject($value);
+        $subjectPreview = new SubjectPreview(
+            $value,
+            '',
+            '',
+        );
 
         static::assertSame($expected, $subjectPreview->getSubject());
+    }
+
+    /**
+     * @dataProvider dataGetSubject
+     */
+    public function testWithSubject(string $value, string $expected): void
+    {
+        $subject = sha1(uniqid());
+        $body = sha1(uniqid());
+        $sender = sha1(uniqid());
+
+        $subjectPreview = new SubjectPreview(
+            $subject,
+            $body,
+            $sender,
+        );
+
+        $newSubject = $subjectPreview->withSubject($value);
+
+        // Original instance is unmodified
+        static::assertSame($subject, $subjectPreview->getSubject());
+
+        // New instance has cleaned new value
+        static::assertSame($expected, $newSubject->getSubject());
+
+        // New instance has original values for other properties
+        static::assertSame($body, $newSubject->getBody());
+        static::assertSame($sender, $newSubject->getSender());
     }
 
     public function dataGetSubject(): array
@@ -57,11 +87,41 @@ class SubjectPreviewTest extends TestCase
      */
     public function testGetBody(string $value, string $expected): void
     {
-        $subjectPreview = new SubjectPreview();
-
-        $subjectPreview->setBody($value);
+        $subjectPreview = new SubjectPreview(
+            '',
+            $value,
+            '',
+        );
 
         static::assertSame($expected, $subjectPreview->getBody());
+    }
+
+    /**
+     * @dataProvider dataGetBody
+     */
+    public function testWithBody(string $value, string $expected): void
+    {
+        $subject = sha1(uniqid());
+        $body = sha1(uniqid());
+        $sender = sha1(uniqid());
+
+        $subjectPreview = new SubjectPreview(
+            $subject,
+            $body,
+            $sender,
+        );
+
+        $newSubject = $subjectPreview->withBody($value);
+
+        // Original instance is unmodified
+        static::assertSame($body, $subjectPreview->getBody());
+
+        // New instance has cleaned new value
+        static::assertSame($expected, $newSubject->getBody());
+
+        // New instance has original values for other properties
+        static::assertSame($subject, $newSubject->getSubject());
+        static::assertSame($sender, $newSubject->getSender());
     }
 
     public function dataGetBody(): array
@@ -97,11 +157,41 @@ class SubjectPreviewTest extends TestCase
      */
     public function testGetSender(string $value, string $expected): void
     {
-        $subjectPreview = new SubjectPreview();
-
-        $subjectPreview->setSender($value);
+        $subjectPreview = new SubjectPreview(
+            '',
+            '',
+            $value,
+        );
 
         static::assertSame($expected, $subjectPreview->getSender());
+    }
+
+    /**
+     * @dataProvider dataGetSender
+     */
+    public function testWithSender(string $value, string $expected): void
+    {
+        $subject = sha1(uniqid());
+        $body = sha1(uniqid());
+        $sender = sha1(uniqid());
+
+        $subjectPreview = new SubjectPreview(
+            $subject,
+            $body,
+            $sender,
+        );
+
+        $newSubject = $subjectPreview->withSender($value);
+
+        // Original instance is unmodified
+        static::assertSame($sender, $subjectPreview->getSender());
+
+        // New instance has cleaned new value
+        static::assertSame($expected, $newSubject->getSender());
+
+        // New instance has original values for other properties
+        static::assertSame($subject, $newSubject->getSubject());
+        static::assertSame($body, $newSubject->getBody());
     }
 
     public function dataGetSender(): array

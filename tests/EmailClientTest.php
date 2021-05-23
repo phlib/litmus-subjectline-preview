@@ -136,12 +136,11 @@ class EmailClientTest extends TestCase
         $body = sha1(uniqid());
         $sender = sha1(uniqid());
 
-        $subjectPreview = new SubjectPreview();
-        $subjectPreview
-            ->setSubject($subject)
-            ->setBody($body)
-            ->setSender($sender)
-        ;
+        $subjectPreview = new SubjectPreview(
+            $subject,
+            $body,
+            $sender,
+        );
 
         $uri = EmailClient::getInstance('ol2003')->getInboxUrl($subjectPreview);
 
@@ -166,12 +165,11 @@ class EmailClientTest extends TestCase
 
     public function testUrlInbox(): void
     {
-        $subjectPreview = new SubjectPreview();
-        $subjectPreview
-            ->setSubject(sha1(uniqid()))
-            ->setBody(sha1(uniqid()))
-            ->setSender(sha1(uniqid()))
-        ;
+        $subjectPreview = new SubjectPreview(
+            sha1(uniqid()),
+            sha1(uniqid()),
+            sha1(uniqid()),
+        );
 
         $uri = EmailClient::getInstance('ol2003')->getInboxUrl($subjectPreview);
 
@@ -185,12 +183,11 @@ class EmailClientTest extends TestCase
 
     public function testUrlToast(): void
     {
-        $subjectPreview = new SubjectPreview();
-        $subjectPreview
-            ->setSubject(sha1(uniqid()))
-            ->setBody(sha1(uniqid()))
-            ->setSender(sha1(uniqid()))
-        ;
+        $subjectPreview = new SubjectPreview(
+            sha1(uniqid()),
+            sha1(uniqid()),
+            sha1(uniqid()),
+        );
 
         $uri = EmailClient::getInstance('ol2003')->getToastUrl($subjectPreview);
 
@@ -207,12 +204,11 @@ class EmailClientTest extends TestCase
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('Toast not supported');
 
-        $subjectPreview = new SubjectPreview();
-        $subjectPreview
-            ->setSubject(sha1(uniqid()))
-            ->setBody(sha1(uniqid()))
-            ->setSender(sha1(uniqid()))
-        ;
+        $subjectPreview = new SubjectPreview(
+            sha1(uniqid()),
+            sha1(uniqid()),
+            sha1(uniqid()),
+        );
 
         EmailClient::getInstance('yahoo')->getToastUrl($subjectPreview);
     }

@@ -8,12 +8,11 @@ use Phlib\LitmusSubjectPreview\EmailClient;
 use Phlib\LitmusSubjectPreview\SubjectPreview;
 
 // Build subject details
-$subjectPreview = new SubjectPreview();
-$subjectPreview
-    ->setSubject('Lorem ipsum')
-    ->setBody('Lorem ipsum dolor sit amet')
-    ->setSender('Example sender <sender@example.com>')
-;
+$subjectPreview = new SubjectPreview(
+    'Lorem ipsum',
+    'Lorem ipsum dolor sit amet',
+    'Example sender <sender@example.com>',
+);
 
 // Fluent access to single client's preview URI
 $previewUri = EmailClient::getInstance('ol2003')->getInboxUrl($subjectPreview);

@@ -26,25 +26,26 @@ class SubjectPreview
      */
     private $sender;
 
-    public function setSubject(string $subject): self
+    public function __construct(string $subject, string $body, string $sender)
     {
         $this->subject = $this->clean($subject, 100);
-
-        return $this;
-    }
-
-    public function setBody(string $body): self
-    {
         $this->body = $this->clean($body, 100);
-
-        return $this;
+        $this->sender = $this->clean($sender, 50);
     }
 
-    public function setSender(string $sender): self
+    public function withSubject(string $subject): self
     {
-        $this->sender = $this->clean($sender, 50);
+        return new static($subject, $this->body, $this->sender);
+    }
 
-        return $this;
+    public function withBody(string $body): self
+    {
+        return new static($this->subject, $body, $this->sender);
+    }
+
+    public function withSender(string $sender): self
+    {
+        return new static($this->subject, $this->body, $sender);
     }
 
     public function getSubject(): string

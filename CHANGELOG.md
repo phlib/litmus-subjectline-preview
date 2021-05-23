@@ -13,8 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add type declarations for parameters and return types.
 - Add `EmailClient::getInboxUrl()` and `EmailClient::getToastUrl()` for clear
   method signatures, requiring an instance of `SubjectPreview` as the param.
+- Add `with*` methods to `SubjectPreview` to create a modified new instance.
 ### Changed
 - **BC break**: Namespace changed to `Phlib\LitmusSubjectPreview`.
+- **BC break**: `SubjectPreview` is immutable, requiring constructor parameters.
 - Change licence to LGPLv3 to match other Phlib projects.
 - Unknown email client throws `DomainException` in
   `EmailClient::getInstance()` instead of generic `Exception`.
@@ -32,6 +34,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - **BC break**: Removed `EmailClient::setSubjectPreview()`.
 - **BC break**: Removed `EmailClient::getUrl()`.
   Use `getInboxUrl()` or `getToastUrl()`.
+- **BC break**: Removed setters from `SubjectPreview` to give an immutable 
+  object using constructor params. Modify an existing subject using `with*` 
+  methods.
 
 ## [2.0.1] - 2021-04-03
 
