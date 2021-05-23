@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
-- Add specific support for PHP v7 (^7.3).
+- Add specific support for PHP v7 and v8 (`^7.3 | ^8.0`).
 - Add dependency requirement for `ext-mbstring`.
 - Add missing from address to preview images.
 - Add type declarations for parameters and return types.
