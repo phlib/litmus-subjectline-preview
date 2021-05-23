@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - **BC break**: Namespace changed to `Phlib\LitmusSubjectPreview`.
 - **BC break**: `SubjectPreview` is immutable, requiring constructor parameters.
+- **BC break**: `EmailClient::hasInstance()` renamed to `EmailClient::create()` 
+  to make it clearer that it returns a new instance, not a singleton.
 - Change licence to LGPLv3 to match other Phlib projects.
 - Unknown email client throws `DomainException` in
   `EmailClient::getInstance()` instead of generic `Exception`.

@@ -15,14 +15,14 @@ $subjectPreview = new SubjectPreview(
 );
 
 // Fluent access to single client's preview URI
-$previewUri = EmailClient::getInstance('ol2003')->getInboxUrl($subjectPreview);
+$previewUri = EmailClient::create('ol2003')->getInboxUrl($subjectPreview);
 echo '<pre>' . $previewUri . '</pre>';
 
 echo "\n\n";
 
 // Output all available images
 foreach (EmailClient::getAvailableEmailClients() as $clientName) {
-    $emailClient = EmailClient::getInstance($clientName);
+    $emailClient = EmailClient::create($clientName);
     echo "<h1>{$emailClient->getName()} ({$emailClient->getSlug()})</h1>\n";
 
     $subjectSize = $emailClient->getGlobalSize();

@@ -38,7 +38,7 @@ class EmailClientTest extends TestCase
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('does not exist');
 
-        EmailClient::getInstance(sha1(uniqid()));
+        EmailClient::create(sha1(uniqid()));
     }
 
     /**
@@ -53,7 +53,7 @@ class EmailClientTest extends TestCase
         ?int $toastWidth,
         ?int $toastHeight
     ): void {
-        $emailClient = EmailClient::getInstance($slug);
+        $emailClient = EmailClient::create($slug);
 
         static::assertEquals($slug, $emailClient->getSlug());
         static::assertEquals($name, $emailClient->getName());
@@ -142,7 +142,7 @@ class EmailClientTest extends TestCase
             $sender,
         );
 
-        $uri = EmailClient::getInstance('ol2003')->getInboxUrl($subjectPreview);
+        $uri = EmailClient::create('ol2003')->getInboxUrl($subjectPreview);
 
         static::assertStringStartsWith('https://allclients.litmus.com/s/?c=ol2003', $uri);
 
@@ -171,7 +171,7 @@ class EmailClientTest extends TestCase
             sha1(uniqid()),
         );
 
-        $uri = EmailClient::getInstance('ol2003')->getInboxUrl($subjectPreview);
+        $uri = EmailClient::create('ol2003')->getInboxUrl($subjectPreview);
 
         $query = parse_url($uri, PHP_URL_QUERY);
         $params = [];
@@ -189,7 +189,7 @@ class EmailClientTest extends TestCase
             sha1(uniqid()),
         );
 
-        $uri = EmailClient::getInstance('ol2003')->getToastUrl($subjectPreview);
+        $uri = EmailClient::create('ol2003')->getToastUrl($subjectPreview);
 
         $query = parse_url($uri, PHP_URL_QUERY);
         $params = [];
@@ -210,6 +210,6 @@ class EmailClientTest extends TestCase
             sha1(uniqid()),
         );
 
-        EmailClient::getInstance('yahoo')->getToastUrl($subjectPreview);
+        EmailClient::create('yahoo')->getToastUrl($subjectPreview);
     }
 }

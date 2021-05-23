@@ -99,7 +99,7 @@ class EmailClient
         return $availableEmailClients;
     }
 
-    public static function getInstance(string $slug): EmailClient
+    public static function create(string $slug): EmailClient
     {
         if (!isset(self::$clientsDatas[$slug])) {
             throw new \DomainException(sprintf('The email client "%s" does not exist.', $slug));
