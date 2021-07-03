@@ -1,9 +1,9 @@
 # phlib/litmus-subjectline-preview
 
-[![Build Status](https://img.shields.io/travis/com/phlib/litmus-subjectline-preview/main.svg)](https://travis-ci.com/phlib/litmus-subjectline-preview)
-[![Codecov](https://img.shields.io/codecov/c/github/phlib/litmus-subjectline-preview.svg)](https://codecov.io/gh/phlib/litmus-subjectline-preview)
-[![Latest Stable Version](https://img.shields.io/packagist/v/phlib/litmus-subjectline-preview.svg)](https://packagist.org/packages/phlib/litmus-subjectline-preview)
-[![Total Downloads](https://img.shields.io/packagist/dt/phlib/litmus-subjectline-preview.svg)](https://packagist.org/packages/phlib/litmus-subjectline-preview)
+[![Code Checks](https://img.shields.io/github/workflow/status/phlib/litmus-subjectline-preview/Code%20Checks?logo=github)](https://github.com/phlib/litmus-subjectline-preview/actions/workflows/code-checks.yml)
+[![Codecov](https://img.shields.io/codecov/c/github/phlib/litmus-subjectline-preview.svg?logo=codecov)](https://codecov.io/gh/phlib/litmus-subjectline-preview)
+[![Latest Stable Version](https://img.shields.io/packagist/v/phlib/litmus-subjectline-preview.svg?logo=packagist)](https://packagist.org/packages/phlib/litmus-subjectline-preview)
+[![Total Downloads](https://img.shields.io/packagist/dt/phlib/litmus-subjectline-preview.svg?logo=packagist)](https://packagist.org/packages/phlib/litmus-subjectline-preview)
 ![Licence](https://img.shields.io/github/license/phlib/litmus-subjectline-preview.svg)
 
 SDK to generate Litmus subject line preview images.
