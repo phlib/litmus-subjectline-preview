@@ -1,6 +1,6 @@
 # phlib/litmus-subjectline-preview
 
-[![Code Checks](https://img.shields.io/github/workflow/status/phlib/litmus-subjectline-preview/Code%20Checks?logo=github)](https://github.com/phlib/litmus-subjectline-preview/actions/workflows/code-checks.yml)
+[![Code Checks](https://img.shields.io/github/actions/workflow/status/phlib/litmus-subjectline-preview/code-checks.yml?logo=github)](https://github.com/phlib/litmus-subjectline-preview/actions/workflows/code-checks.yml)
 [![Codecov](https://img.shields.io/codecov/c/github/phlib/litmus-subjectline-preview.svg?logo=codecov)](https://codecov.io/gh/phlib/litmus-subjectline-preview)
 [![Latest Stable Version](https://img.shields.io/packagist/v/phlib/litmus-subjectline-preview.svg?logo=packagist)](https://packagist.org/packages/phlib/litmus-subjectline-preview)
 [![Total Downloads](https://img.shields.io/packagist/dt/phlib/litmus-subjectline-preview.svg?logo=packagist)](https://packagist.org/packages/phlib/litmus-subjectline-preview)
