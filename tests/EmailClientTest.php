@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Phlib\LitmusSubjectPreview\Test;
 
-use Phlib\LitmusSubjectPreview\SubjectPreview;
 use Phlib\LitmusSubjectPreview\EmailClient;
+use Phlib\LitmusSubjectPreview\SubjectPreview;
 use PHPUnit\Framework\TestCase;
 
 /**

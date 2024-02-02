@@ -40,42 +40,69 @@ class EmailClient
     private $toastSize;
 
     /**
-     * @var array $clientsDatas List of mail client datas
+     * @var array List of mail client datas
      */
     private static $clientsDatas = [
         'ol2003' => [
             'name' => 'Outlook 2003',
             'hasToast' => true,
-            'globalSize' => ['width' => 841, 'height' => 128],
-            'toastSize' => ['width' => 329, 'height' => 74],
+            'globalSize' => [
+                'width' => 841,
+                'height' => 128,
+            ],
+            'toastSize' => [
+                'width' => 329,
+                'height' => 74,
+            ],
         ],
         'ol2007' => [
             'name' => 'Outlook 2007',
             'hasToast' => true,
-            'globalSize' => ['width' => 662, 'height' => 169],
-            'toastSize' => ['width' => 329, 'height' => 74],
+            'globalSize' => [
+                'width' => 662,
+                'height' => 169,
+            ],
+            'toastSize' => [
+                'width' => 329,
+                'height' => 74,
+            ],
         ],
         'ol2010' => [
             'name' => 'Outlook 2010',
             'hasToast' => true,
-            'globalSize' => ['width' => 579, 'height' => 128],
-            'toastSize' => ['width' => 329, 'height' => 74],
+            'globalSize' => [
+                'width' => 579,
+                'height' => 128,
+            ],
+            'toastSize' => [
+                'width' => 329,
+                'height' => 74,
+            ],
         ],
         'hotmail' => [
             'name' => 'Hotmail',
             'hasToast' => false,
-            'globalSize' => ['width' => 687, 'height' => 110],
+            'globalSize' => [
+                'width' => 687,
+                'height' => 110,
+            ],
         ],
         'gmail' => [
             'name' => 'Gmail',
             'hasToast' => false,
-            'globalSize' => ['width' => 803, 'height' => 83],
+            'globalSize' => [
+                'width' => 803,
+                'height' => 83,
+            ],
         ],
         'yahoo' => [
             'name' => 'Yahoo',
             'slug' => 'yahoo',
             'hasToast' => false,
-            'globalSize' => ['width' => 601, 'height' => 104],
+            'globalSize' => [
+                'width' => 601,
+                'height' => 104,
+            ],
         ],
     ];
 
@@ -94,13 +121,13 @@ class EmailClient
         return $availableEmailClients;
     }
 
-    public static function create(string $slug): EmailClient
+    public static function create(string $slug): self
     {
         if (!isset(self::$clientsDatas[$slug])) {
             throw new \DomainException(sprintf('The email client "%s" does not exist.', $slug));
         }
 
-        return new EmailClient(
+        return new self(
             $slug,
             self::$clientsDatas[$slug]['name'],
             self::$clientsDatas[$slug]['hasToast'],
@@ -169,7 +196,7 @@ class EmailClient
             'p' => $subject->getBody(),
             'f' => $subject->getSender(),
             't' => $toast ? 'toast' : 'subject',
-            'rnd' => rand(0, 99999)
+            'rnd' => rand(0, 99999),
         ];
 
         return $this->baseUri . '?' . http_build_query($data);
